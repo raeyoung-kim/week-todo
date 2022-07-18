@@ -1,6 +1,11 @@
 import React from 'react';
+import { WEEK } from 'src/services/data';
 
-const WeatherItem: React.FC = () => {
+interface Props {
+  data: string;
+}
+
+const WeatherItem: React.FC<Props> = ({ data }) => {
   return (
     <article
       style={{
@@ -11,9 +16,18 @@ const WeatherItem: React.FC = () => {
         height: '100%',
         backgroundColor: '#ddd',
         marginRight: 12,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      test
+      <p>
+        {data.slice(5, 10).split('-').join('/')}({WEEK[new Date(data).getDay()]}
+        )
+      </p>
+      <span>(날씨 아이콘)</span>
+      <p>섭씨</p>
     </article>
   );
 };
