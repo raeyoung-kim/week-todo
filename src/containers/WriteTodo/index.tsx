@@ -1,12 +1,19 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Title } from 'src/components';
+import { getCurrentWeek } from 'src/services/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
+  type: 'add' | 'modify';
   data?: Todo;
 }
 
-const WriteTodo: React.FC<Props> = ({ data }) => {
-  const [todoData, setTodoData] = useState({
+const WriteTodo: React.FC<Props> = ({ data, type }) => {
+  const navigate = useNavigate();
+  const [currentWeek] = useState(getCurrentWeek());
+  const [todoData, setTodoData] = useState<Todo>({
+    id: uuidv4(),
     title: '',
     description: '',
     date: '',
@@ -31,13 +38,42 @@ const WriteTodo: React.FC<Props> = ({ data }) => {
       const result = [todoData];
       window.localStorage.setItem('todo', JSON.stringify(result));
     }
+    navigate({
+      pathname: '/',
+    });
   };
 
-  useLayoutEffect(() => {
+  const handleModifyTodo = () => {
+    if (!todoData.title.length) {
+      return alert('제목을 입력해주세요 :)');
+    }
+
+    if (!todoData.date.length) {
+      return alert('Due Date를 설정해주세요 :)');
+    }
+
+    const todoList = window.localStorage.getItem('todo');
+    if (todoList) {
+      const newTodoList = JSON.parse(todoList).map((el: Todo) => {
+        if (el.id === todoData.id) {
+          return todoData;
+        } else {
+          return el;
+        }
+      });
+
+      window.localStorage.setItem('todo', JSON.stringify(newTodoList));
+    }
+    navigate({
+      pathname: '/',
+    });
+  };
+
+  useEffect(() => {
     if (data) {
       setTodoData(data);
     }
-  }, []);
+  }, [data]);
 
   return (
     <div
@@ -60,6 +96,7 @@ const WriteTodo: React.FC<Props> = ({ data }) => {
               padding: '0px 12px',
               marginTop: 8,
             }}
+            value={todoData?.title}
             onChange={(e) =>
               setTodoData({
                 ...todoData,
@@ -73,6 +110,7 @@ const WriteTodo: React.FC<Props> = ({ data }) => {
         <h3>내용</h3>
         <textarea
           style={{ height: 150, width: '100%', marginTop: 8, resize: 'none' }}
+          value={todoData?.description}
           onChange={(e) =>
             setTodoData({
               ...todoData,
@@ -91,6 +129,8 @@ const WriteTodo: React.FC<Props> = ({ data }) => {
             padding: '0px 12px',
             marginTop: 8,
           }}
+          min={currentWeek.dates[0].slice(0, 10)}
+          value={data?.date?.slice(0, 10)}
           onChange={(e) =>
             setTodoData({
               ...todoData,
@@ -99,7 +139,10 @@ const WriteTodo: React.FC<Props> = ({ data }) => {
           }
         />
       </div>
-      <button style={{ height: 40 }} onClick={handleTodoSave}>
+      <button
+        style={{ height: 40 }}
+        onClick={type === 'add' ? handleTodoSave : handleModifyTodo}
+      >
         저장 버튼
       </button>
     </div>

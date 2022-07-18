@@ -1,15 +1,15 @@
 import React from 'react';
 
 interface Props {
-  id: string | number;
+  data: Todo;
 }
 
-const TodoItem: React.FC<Props> = ({ id }) => {
+const TodoItem: React.FC<Props> = ({ data }) => {
   return (
     <article style={{ display: 'flex' }}>
       <input type={'checkbox'} />
-      <a href={`/modify/${id}`}>
-        <p>test</p>
+      <a href={`/modify/${data.id}`}>
+        <p>{data.title}</p>
       </a>
       <button>x</button>
     </article>

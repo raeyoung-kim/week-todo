@@ -4,7 +4,7 @@ import { WriteTodo } from 'src/containers';
 const AddPage: React.FC = () => {
   return (
     <div className="container">
-      <WriteTodo />
+      <WriteTodo type="add" />
     </div>
   );
 };

@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import TodoItem from '../TodoItem';
 
 const TodoList: React.FC = () => {
+  const [list, setList] = useState<Todo[]>([]);
+  useLayoutEffect(() => {
+    const todoList = window.localStorage.getItem('todo');
+    if (todoList) {
+      setList(JSON.parse(todoList));
+    }
+  }, []);
+
   return (
     <section
       style={{
@@ -12,10 +20,10 @@ const TodoList: React.FC = () => {
       }}
     >
       <ul>
-        {[...Array(50)].map((el, i) => {
+        {list.map((el, i) => {
           return (
-            <li key={i}>
-              <TodoItem key={i} id={i} />
+            <li key={el.id}>
+              <TodoItem data={el} />
             </li>
           );
         })}
