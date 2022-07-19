@@ -2,7 +2,7 @@ import React from 'react';
 import { WEEK } from 'src/services/data';
 
 interface Props {
-  data: string;
+  data: WeatherData;
 }
 
 const WeatherItem: React.FC<Props> = ({ data }) => {
@@ -23,11 +23,20 @@ const WeatherItem: React.FC<Props> = ({ data }) => {
       }}
     >
       <p>
-        {data.slice(5, 10).split('-').join('/')}({WEEK[new Date(data).getDay()]}
-        )
+        {data.date.slice(5, 10).split('-').join('/')}(
+        {WEEK[new Date(data.date).getDay()]})
       </p>
-      <span>(날씨 아이콘)</span>
-      <p>섭씨</p>
+      <span>
+        <img
+          width={50}
+          height={50}
+          src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+        />
+      </span>
+      <p>
+        {data.day ? Math.round(data.day) : null}
+        {data.temp ? Math.round(data.temp) : null}
+      </p>
     </article>
   );
 };

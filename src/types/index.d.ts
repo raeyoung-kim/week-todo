@@ -5,3 +5,11 @@ type Todo = {
   date: string;
   isCheck: boolean;
 };
+
+type WeatherData = {
+  date: string;
+  dt: number;
+  icon: string;
+  day?: number;
+  temp?: number;
+};

@@ -4,9 +4,10 @@ import WeatherItem from '../WeatherItem';
 
 interface Props {
   title?: string;
+  weekList: WeatherData[];
 }
 
-const WeekWeather: React.FC<Props> = ({ title }) => {
+const WeekWeather: React.FC<Props> = ({ title, weekList }) => {
   const weatherRef = useRef<HTMLDivElement>(null);
   const [currentWeek] = useState(getCurrentWeek());
 
@@ -14,7 +15,7 @@ const WeekWeather: React.FC<Props> = ({ title }) => {
     if (weatherRef) {
       weatherRef.current?.scrollTo(currentWeek.currenyDay * 112, 0);
     }
-  }, [weatherRef]);
+  }, [weatherRef, weekList]);
 
   return (
     <section>
@@ -28,8 +29,8 @@ const WeekWeather: React.FC<Props> = ({ title }) => {
           width: '100%',
         }}
       >
-        {currentWeek.dates.map((el) => {
-          return <WeatherItem key={el} data={el} />;
+        {weekList.map((el) => {
+          return <WeatherItem key={el.date} data={el} />;
         })}
       </div>
     </section>
