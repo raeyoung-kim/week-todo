@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Title } from 'src/components';
-import { getCurrentWeek } from 'src/services/utils';
+import { getCurrentWeek, sortTodoList } from 'src/services/utils';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
@@ -33,7 +33,10 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
     if (todoList) {
       const newTodoList = JSON.parse(todoList);
       newTodoList.push(todoData);
-      window.localStorage.setItem('todo', JSON.stringify(newTodoList));
+      window.localStorage.setItem(
+        'todo',
+        JSON.stringify(sortTodoList(newTodoList))
+      );
     } else {
       const result = [todoData];
       window.localStorage.setItem('todo', JSON.stringify(result));
@@ -122,21 +125,21 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
       <div>
         <h3>Due Date</h3>
         <input
-          type="date"
+          type="datetime-local"
           style={{
             width: '100%',
             height: 30,
             padding: '0px 12px',
             marginTop: 8,
           }}
-          min={currentWeek.dates[0].slice(0, 10)}
-          value={data?.date?.slice(0, 10)}
-          onChange={(e) =>
+          min={currentWeek.dates[0].slice(0, 16)}
+          value={data?.date}
+          onChange={(e) => {
             setTodoData({
               ...todoData,
               date: e.target.value,
-            })
-          }
+            });
+          }}
         />
       </div>
       <button

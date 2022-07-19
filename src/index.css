@@ -26,6 +26,11 @@ ul {
   padding: 0px;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 @media (min-height: 650px) {
   body {
     overflow: hidden;
