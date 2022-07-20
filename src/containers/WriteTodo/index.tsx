@@ -112,8 +112,8 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
       <div className={styles.duedate_wrapper}>
         <h3>Due Date</h3>
         <input
-          type="datetime-local"
-          min={currentWeek.dates[0].slice(0, 16)}
+          type="date"
+          min={currentWeek.dates[0].slice(0, 10)}
           value={data?.date}
           onChange={(e) => {
             setTodoData({

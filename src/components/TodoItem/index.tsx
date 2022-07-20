@@ -6,6 +6,7 @@ import {
 } from 'react-icons/md';
 import classNames from 'classnames';
 import styles from './TodoItem.module.css';
+import { getCurrentWeek } from 'src/services/utils';
 interface Props {
   data: Todo;
   onDelete: (data: Todo) => void;
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const TodoItem: React.FC<Props> = ({ data, onDelete, onChangeCheck }) => {
+  const { today } = getCurrentWeek();
+
   return (
     <article className={styles.container}>
       <div className={styles.inner}>
@@ -35,13 +38,18 @@ const TodoItem: React.FC<Props> = ({ data, onDelete, onChangeCheck }) => {
               [styles.checked]: data.isCheck,
               [styles.unchecked]: !data.isCheck,
               [styles.todo_color_red]:
-                data.date < new Date().toISOString() && !data.isCheck,
+                data.date <= today.slice(0, 10) && !data.isCheck,
             })}
           >
             {data.title}
           </p>
-          <p className={styles.date}>
-            {data.date.slice(0, 10)} {data.date.slice(11, 17)}
+          <p
+            className={classNames(styles.date, {
+              [styles.todo_color_red]:
+                data.date <= today.slice(0, 10) && !data.isCheck,
+            })}
+          >
+            due date: {data.date.slice(0, 10)}
           </p>
         </a>
       </div>

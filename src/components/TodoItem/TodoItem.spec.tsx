@@ -14,7 +14,7 @@ describe('TodoItem Component', () => {
           id: '1',
           title: 'Todo title',
           description: 'description',
-          date: '2022-07-20T05:13:54.360Z',
+          date: '2022-07-20',
           isCheck: true,
         }}
         onDelete={handler}
