@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Title } from 'src/components';
 import { getCurrentWeek, sortTodoList } from 'src/services/utils';
 import { v4 as uuidv4 } from 'uuid';
+import styles from './WriteTodo.module.css';
 
 interface Props {
   type: 'add' | 'modify';
@@ -79,26 +80,13 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
   }, [data]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '100%',
-      }}
-    >
+    <div className={styles.container}>
       <div>
         <Title title="To-Do" />
-        <div style={{ padding: '16px 0px', marginTop: 10 }}>
+        <div className={styles.title_wrapper}>
           <h3>제목</h3>
           <input
             type={'text'}
-            style={{
-              width: '100%',
-              height: 30,
-              padding: '0px 12px',
-              marginTop: 8,
-            }}
             value={todoData?.title}
             onChange={(e) =>
               setTodoData({
@@ -109,10 +97,9 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
           />
         </div>
       </div>
-      <div>
+      <div className={styles.description_wrapper}>
         <h3>내용</h3>
         <textarea
-          style={{ height: 150, width: '100%', marginTop: 8, resize: 'none' }}
           value={todoData?.description}
           onChange={(e) =>
             setTodoData({
@@ -122,16 +109,10 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
           }
         />
       </div>
-      <div>
+      <div className={styles.duedate_wrapper}>
         <h3>Due Date</h3>
         <input
           type="datetime-local"
-          style={{
-            width: '100%',
-            height: 30,
-            padding: '0px 12px',
-            marginTop: 8,
-          }}
           min={currentWeek.dates[0].slice(0, 16)}
           value={data?.date}
           onChange={(e) => {
@@ -142,10 +123,7 @@ const WriteTodo: React.FC<Props> = ({ data, type }) => {
           }}
         />
       </div>
-      <button
-        style={{ height: 40 }}
-        onClick={type === 'add' ? handleTodoSave : handleModifyTodo}
-      >
+      <button onClick={type === 'add' ? handleTodoSave : handleModifyTodo}>
         저장 버튼
       </button>
     </div>

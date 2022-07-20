@@ -30,6 +30,7 @@ export const getCurrentWeek = () => {
   }
 
   return {
+    today: dates[day],
     currenyDay: day,
     dates,
   };

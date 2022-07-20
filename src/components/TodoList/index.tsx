@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import TodoItem from '../TodoItem';
+import styles from './TodoList.module.css';
 
 const TodoList: React.FC = () => {
   const [list, setList] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    const todoList = window.localStorage.getItem('todo');
-
-    if (todoList) {
-      setList(JSON.parse(todoList));
-    }
-  }, []);
 
   const handleTodoCheck = (data: Todo) => {
     const todoList = window.localStorage.getItem('todo');
@@ -38,28 +31,35 @@ const TodoList: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const todoList = window.localStorage.getItem('todo');
+
+    if (todoList) {
+      setList(JSON.parse(todoList));
+    }
+  }, []);
+
   return (
-    <section
-      style={{
-        border: '1px solid #ddd',
-        height: '100%',
-        overflow: 'hidden',
-        overflowY: 'auto',
-      }}
-    >
-      <ul>
-        {list.map((el) => {
-          return (
-            <li key={el.id} style={{ padding: '8px 12px' }}>
-              <TodoItem
-                data={el}
-                onDelete={handleTodoDelete}
-                onChangeCheck={handleTodoCheck}
-              />
-            </li>
-          );
-        })}
-      </ul>
+    <section className={styles.container}>
+      {list.length ? (
+        <ul>
+          {list.map((el) => {
+            return (
+              <li key={el.id}>
+                <TodoItem
+                  data={el}
+                  onDelete={handleTodoDelete}
+                  onChangeCheck={handleTodoCheck}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div className={styles.emptywrapper}>
+          <p>{`투두 항목을 작성해주세요 :)`}</p>
+        </div>
+      )}
     </section>
   );
 };

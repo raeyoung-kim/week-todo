@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Title, TodoList, WeekWeather } from 'src/components';
+import { Loading, Title, TodoList, WeekWeather } from 'src/components';
 import { getPastWeather, getWeather } from 'src/services/api';
 import { getCurrentWeek } from 'src/services/utils';
+import styles from './ListPage.module.css';
 
 const ListPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,29 +55,25 @@ const ListPage: React.FC = () => {
 
   return (
     <div className="container">
-      <div style={{ height: '50%' }}>
+      <div className={styles.wrapper}>
         <Title title="THIS WEEK" description="신나는 일주일을 계획합시다" />
-        <div style={{ padding: '16px 0px' }}>
-          <WeekWeather title={'이번주 날씨'} weekList={weekList} />
+        <div className={styles.weekweather_wrapper}>
+          {isLoading ? (
+            <div className={styles.loading_wrapper}>
+              <Loading />
+            </div>
+          ) : (
+            <WeekWeather title={'이번주 날씨'} weekList={weekList} />
+          )}
         </div>
       </div>
 
-      <div style={{ height: '50%' }}>
+      <div className={styles.wrapper}>
         <h3>이번주 To Do</h3>
-        <a
-          href={'/add'}
-          style={{
-            textDecoration: 'none',
-            display: 'block',
-            textAlign: 'center',
-            backgroundColor: '#ddd',
-            padding: '10px 0px',
-            marginTop: 12,
-          }}
-        >
-          추가 버튼
+        <a href={'/add'} className={styles.add_button}>
+          To Do 추가하기
         </a>
-        <div style={{ marginTop: 16, height: '55%' }}>
+        <div className={styles.todolist_wrapper}>
           <TodoList />
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Title.module.css';
 
 interface Props {
   title: string;
@@ -7,9 +8,9 @@ interface Props {
 
 const Title: React.FC<Props> = ({ title, description }) => {
   return (
-    <section style={{ padding: '12px 0px' }}>
+    <section className={styles.wrapper}>
       <h1>{title}</h1>
-      {description ? <p style={{ marginTop: 10 }}>{description}</p> : null}
+      {description ? <p className={styles.description}>{description}</p> : null}
     </section>
   );
 };

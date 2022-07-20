@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.inner {
+  display: flex;
+  align-items: flex-start;
+}
+
+.inner a {
+  padding: 0px 4px;
+}
+
+.icon {
+  width: 23px;
+  height: 23px;
+}
+
+.todo_color_red {
+  color: rgb(240, 43, 43);
+}
+
+.checked {
+  text-decoration: line-through;
+}
+
+.unchecked {
+  text-decoration: none;
+}
+
+.date {
+  font-size: 12px;
+}
+
+.button {
+  border: none;
+  background-color: white;
+}
+
+.close_icon {
+  width: 18px;
+  height: 18px;
+}

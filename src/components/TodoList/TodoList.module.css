@@ -1,0 +1,27 @@
+.container {
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  border: 1px solid black;
+  border-radius: 4px;
+  -ms-overflow-style: none;
+}
+
+.container::-webkit-scrollbar{
+  display: none;
+ }
+
+.container ul li {
+  padding: 8px 12px;
+}
+
+.emptywrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.emptywrapper p {
+  font-size: 14px;
+}

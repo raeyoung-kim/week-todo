@@ -1,5 +1,11 @@
 import React from 'react';
-
+import {
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
+  MdHighlightOff,
+} from 'react-icons/md';
+import classNames from 'classnames';
+import styles from './TodoItem.module.css';
 interface Props {
   data: Todo;
   onDelete: (data: Todo) => void;
@@ -8,44 +14,39 @@ interface Props {
 
 const TodoItem: React.FC<Props> = ({ data, onDelete, onChangeCheck }) => {
   return (
-    <article
-      style={{
-        display: 'flex',
-        alignItems: 'start',
-        justifyContent: 'space-between',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'start',
-        }}
-      >
-        <input
-          type={'checkbox'}
-          checked={data.isCheck}
-          onChange={() => {
-            onChangeCheck(data);
-          }}
-        />
+    <article className={styles.container}>
+      <div className={styles.inner}>
+        {data.isCheck ? (
+          <MdCheckBox
+            className={styles.icon}
+            onClick={() => onChangeCheck(data)}
+          />
+        ) : (
+          <MdCheckBoxOutlineBlank
+            className={styles.icon}
+            onClick={() => onChangeCheck(data)}
+          />
+        )}
+
         <a href={`/modify/${data.id}`}>
           <p
-            style={{
-              color:
-                data.date < new Date().toISOString() && !data.isCheck
-                  ? 'red'
-                  : 'black',
-              textDecoration: data.isCheck ? 'line-through' : 'none',
-            }}
+            className={classNames({
+              [styles.checked]: data.isCheck,
+              [styles.unchecked]: !data.isCheck,
+              [styles.todo_color_red]:
+                data.date < new Date().toISOString() && !data.isCheck,
+            })}
           >
             {data.title}
           </p>
-          <p style={{ fontSize: 12 }}>
+          <p className={styles.date}>
             {data.date.slice(0, 10)} {data.date.slice(11, 17)}
           </p>
         </a>
       </div>
-      <button onClick={() => onDelete(data)}>x</button>
+      <button className={styles.button} onClick={() => onDelete(data)}>
+        <MdHighlightOff className={styles.close_icon} />
+      </button>
     </article>
   );
 };

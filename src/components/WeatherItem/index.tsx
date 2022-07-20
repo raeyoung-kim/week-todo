@@ -1,33 +1,32 @@
+import classNames from 'classnames';
 import React from 'react';
+import { TbTemperatureCelsius } from 'react-icons/tb';
 import { WEEK } from 'src/services/data';
+import { getCurrentWeek } from 'src/services/utils';
+import styles from './WeatherItem.module.css';
 
 interface Props {
   data: WeatherData;
 }
 
 const WeatherItem: React.FC<Props> = ({ data }) => {
+  const { today } = getCurrentWeek();
+  const isToday = today.slice(0, 10) === data.date.slice(0, 10);
+
   return (
     <article
-      style={{
-        minWidth: 100,
-        maxWidth: 100,
-        minHeight: 150,
-        maxHeight: 150,
-        height: '100%',
-        backgroundColor: '#ddd',
-        marginRight: 12,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      className={classNames([styles.container], {
+        [styles.today]: isToday,
+      })}
     >
-      <p>
+      <div>
+        {isToday && <p className={styles.today_text}>오늘</p>}
         {data.date.slice(5, 10).split('-').join('/')}(
         {WEEK[new Date(data.date).getDay()]})
-      </p>
+      </div>
       <span>
         <img
+          alt={data.main}
           width={50}
           height={50}
           src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
@@ -36,6 +35,7 @@ const WeatherItem: React.FC<Props> = ({ data }) => {
       <p>
         {data.day ? Math.round(data.day) : null}
         {data.temp ? Math.round(data.temp) : null}
+        <TbTemperatureCelsius />
       </p>
     </article>
   );

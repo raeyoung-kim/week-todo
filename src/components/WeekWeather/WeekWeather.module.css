@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  overflow: hidden;
+  overflow-x: auto;
+  width: 100%;
+  -ms-overflow-style: none;
+}
+
+.wrapper::-webkit-scrollbar{
+ display: none;
+}
+
+.title {
+  margin-bottom: 10px;
+}

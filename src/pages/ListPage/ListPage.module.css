@@ -1,0 +1,32 @@
+.wrapper {
+  height: 50%;
+}
+
+.loading_wrapper {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weekweather_wrapper {
+  padding: 16px 0px;
+  height: 100%;
+
+}
+
+.add_button {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  padding: 10px 0px;
+  margin-top: 12px;
+  border-radius: 4px;
+}
+
+.todolist_wrapper {
+  margin-top: 16px;
+  height: 55%;
+}
