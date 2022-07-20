@@ -6,7 +6,7 @@ import ModifyPage from './pages/ModifyPage';
 
 function App() {
   return (
-    <div className="App">
+    <div data-testid="app">
       <Routes>
         <Route path={'/'} element={<ListPage />} />
         <Route path={'/add'} element={<AddPage />} />

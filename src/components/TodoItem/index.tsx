@@ -18,6 +18,7 @@ const TodoItem: React.FC<Props> = ({ data, onDelete, onChangeCheck }) => {
       <div className={styles.inner}>
         {data.isCheck ? (
           <MdCheckBox
+            data-testid="checked"
             className={styles.icon}
             onClick={() => onChangeCheck(data)}
           />

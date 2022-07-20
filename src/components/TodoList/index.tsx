@@ -40,7 +40,7 @@ const TodoList: React.FC = () => {
   }, []);
 
   return (
-    <section className={styles.container}>
+    <section data-testid="todo-list" className={styles.container}>
       {list.length ? (
         <ul>
           {list.map((el) => {
