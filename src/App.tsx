@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { AddPage, ListPage, ModifyPage, NotFoundPage } from './pages';
 import './App.css';
-import { AddPage, ListPage } from './pages';
-import ModifyPage from './pages/ModifyPage';
 
 function App() {
   return (
@@ -11,6 +10,7 @@ function App() {
         <Route path={'/'} element={<ListPage />} />
         <Route path={'/add'} element={<AddPage />} />
         <Route path={'/modify/:id'} element={<ModifyPage />} />
+        <Route path={'*'} element={<NotFoundPage />} />
       </Routes>
     </div>
   );
